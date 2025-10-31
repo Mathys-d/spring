@@ -1,29 +1,42 @@
 package org.example.spring.service;
 
 
+import org.example.spring.dao.ClientDao;
 import org.example.spring.modele.Client;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ServiceClients {
+public class ServiceClients implements ClientDao {
 
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    Date dateNaissance = sdf.parse("12/05/1999");
+
     public ServiceClients() throws ParseException {
     }
 
-    private List<Client> clients = Arrays.asList(new Client(0,"first","last",dateNaissance, "A0B1C2D3E"));
+    public static List<Client> clients = new ArrayList<>();
 
-    public List<Client> getClients() {
+    static {
+
+
+        clients.add(new Client(0,"first","last", LocalDate.of(1999,5,12), "A0B1C2D3E"));
+
+        clients.add(new Client(1,"first","last",LocalDate.of(2000,01,10), "A0B1C2D3E"));
+
+        clients.add(new Client(2,"first","last",LocalDate.of(2012,1,20), "A0B1C2D3E"));
+
+    }
+
+    @Override
+    public List<Client> findAll() {
         return clients;
     }
-    public Client getClientsById(int id) {
+
+    @Override
+    public Client findById(int id) {
         for  (Client client : clients) {
             if(client.getId() == id) {
                 return client;
@@ -32,4 +45,35 @@ public class ServiceClients {
         return null;
     }
 
+    @Override
+    public Client save(String firstName, String lastName, LocalDate dateOfBirth, String drivingLicense) {
+        int lastId = clients.get(clients.size() - 1).getId();
+        int nextId = lastId + 1;
+        clients.add(new Client (nextId,firstName,lastName,dateOfBirth,drivingLicense));
+        return  clients.get(nextId);
+    }
+
+    @Override
+    public Client update(Client client,String firstName, String lastName, LocalDate dateOfBirth) {
+        if (!client.getFirstName().equals(firstName)) {
+            client.setFirstName(firstName);
+        }
+        if (!client.getLastName().equals(lastName)){
+            client.setLastName(lastName);
+        }
+        if (!client.getBirth().equals(dateOfBirth.toString())){
+            client.setBirth(dateOfBirth);
+        }
+        return client;
+    }
+
+    @Override
+    public Client deleteById(int id){
+         clients.remove(findById(id));
+         if(findById(id) == null){
+             return null;
+         }
+         System.out.println("didnt find the client at id: " + id);
+        return null;
+    }
 }

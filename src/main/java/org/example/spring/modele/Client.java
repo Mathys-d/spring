@@ -2,6 +2,7 @@ package org.example.spring.modele;
 
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -10,11 +11,11 @@ public class Client {
     private int id;
     private String firstName;
     private String lastName;
-    private Date birth;
+    private LocalDate birth;
     private String drivingLicense;
 
     public Client() {}
-    public Client(int id, String first_name, String last_name, Date birth, String driving_license) {
+    public Client(int id, String first_name, String last_name, LocalDate birth, String driving_license) {
         this.id = id;
         this.firstName = first_name;
         this.lastName = last_name;
@@ -34,7 +35,7 @@ public class Client {
         return lastName;
     }
 
-    public Date getBirth() {
+    public LocalDate getBirth() {
         return birth;
     }
 
@@ -54,7 +55,7 @@ public class Client {
         this.lastName = lastName;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(LocalDate birth) {
         this.birth = birth;
     }
 
@@ -72,4 +73,5 @@ public class Client {
                 ", drivingLicense='" + drivingLicense + '\'' +
                 '}';
     }
+
 }
