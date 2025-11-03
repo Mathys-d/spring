@@ -4,7 +4,10 @@ import org.example.spring.modele.Client;
 import org.example.spring.service.ServiceClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class ClientsController {
@@ -42,12 +45,19 @@ public class ClientsController {
 
     @PostMapping("/Clients")
     public Client addClient(@RequestBody Client client) {
-        return serviceClients.save(client);
+        RestTemplate restTemplate = new RestTemplate();
+
+        boolean result = restTemplate.getForObject("http://localhost:8081/licenses/" + client.getDrivingLicense(), boolean.class);
+        if (result) {
+            return serviceClients.save(client);
+        }else {
+            return null;
+        }
     }
 
     @PutMapping("/Clients/{id}")
     Client replaceClient(@RequestBody Client newClient, @PathVariable int id) {
-        return serviceClients.update(newClient,id);
+        return serviceClients.update(newClient, id);
     }
 
     @DeleteMapping("/Clients/{id}")
