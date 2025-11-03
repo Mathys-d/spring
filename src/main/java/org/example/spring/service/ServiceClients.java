@@ -46,23 +46,24 @@ public class ServiceClients implements ClientDao {
     }
 
     @Override
-    public Client save(String firstName, String lastName, LocalDate dateOfBirth, String drivingLicense) {
+    public Client save(Client client) {
         int lastId = clients.get(clients.size() - 1).getId();
         int nextId = lastId + 1;
-        clients.add(new Client (nextId,firstName,lastName,dateOfBirth,drivingLicense));
-        return  clients.get(nextId);
+        client.setId(nextId);
+        clients.add(client);
+        return client;
     }
 
+    //recuperer le client pour l'update et
     @Override
-    public Client update(Client client,String firstName, String lastName, LocalDate dateOfBirth) {
-        if (!client.getFirstName().equals(firstName)) {
-            client.setFirstName(firstName);
-        }
-        if (!client.getLastName().equals(lastName)){
-            client.setLastName(lastName);
-        }
-        if (!client.getBirth().equals(dateOfBirth.toString())){
-            client.setBirth(dateOfBirth);
+    public Client update(Client client,int id) {
+        for  (Client clientt : clients) {
+            if(clientt.getId() == id) {
+                clientt.setFirstName(client.getFirstName());
+                clientt.setLastName(client.getLastName());
+                clientt.setBirth(client.getBirth());
+                clientt.setDrivingLicense(client.getDrivingLicense());
+            }
         }
         return client;
     }

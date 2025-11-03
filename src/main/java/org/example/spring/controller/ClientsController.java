@@ -4,8 +4,6 @@ import org.example.spring.modele.Client;
 import org.example.spring.service.ServiceClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -22,7 +20,7 @@ public class ClientsController {
         return "Hello World";
     }
 
-    @RequestMapping("/Client")
+    @RequestMapping("/Clients")
     public List<Client> requestClients() {
         return serviceClients.findAll();
     }
@@ -32,27 +30,27 @@ public class ClientsController {
         return serviceClients.findById(id);
     }
 
-    @GetMapping("/Client")
+    @GetMapping("/Clients")
     public List<Client> getClients() {
         return serviceClients.findAll();
     }
 
-    @GetMapping("/Client/{id}")
+    @GetMapping("/Clients/{id}")
     public Client getClientsById(@PathVariable int id) {
         return serviceClients.findById(id);
     }
 
-    @PostMapping("/Client")
-    public Client addClient(@RequestBody String firstName, String lastName, LocalDate dateOfBirth,String drivingLicense) {
-        return serviceClients.save(firstName, lastName, dateOfBirth, drivingLicense);
+    @PostMapping("/Clients")
+    public Client addClient(@RequestBody Client client) {
+        return serviceClients.save(client);
     }
 
-    @PutMapping("/Client")
-    public Client updateClient(@RequestBody Client client,String firstName, String lastName, LocalDate dateOfBirth) {
-        return serviceClients.update(client,firstName,lastName,dateOfBirth);
+    @PutMapping("/Clients/{id}")
+    Client replaceClient(@RequestBody Client newClient, @PathVariable int id) {
+        return serviceClients.update(newClient,id);
     }
 
-    @DeleteMapping("/Client/{id}")
+    @DeleteMapping("/Clients/{id}")
     public Client deleteClientsById(@PathVariable int id) {
         return serviceClients.deleteById(id);
     }
