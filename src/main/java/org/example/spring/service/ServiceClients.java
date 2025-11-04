@@ -19,17 +19,6 @@ public class ServiceClients implements ClientDao {
 
     public static List<Client> clients = new ArrayList<>();
 
-    static {
-
-
-        clients.add(new Client(0,"first","last", LocalDate.of(1999,5,12), "A0B1C2D3E"));
-
-        clients.add(new Client(1,"first","last",LocalDate.of(2000,1,10), "A0B1C2D3E"));
-
-        clients.add(new Client(2,"first","last",LocalDate.of(2012,1,20), "A0B1C2D3E"));
-
-    }
-
     @Override
     public List<Client> findAll() {
         return clients;

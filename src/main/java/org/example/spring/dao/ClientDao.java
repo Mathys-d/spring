@@ -10,4 +10,4 @@ public interface ClientDao {
     Client save(Client client);
     Client update(Client client, int id);
     Client deleteById(int id);
-    }
+}
