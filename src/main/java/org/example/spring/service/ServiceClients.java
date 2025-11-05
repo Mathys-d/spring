@@ -1,15 +1,15 @@
 package org.example.spring.service;
 
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.spring.dao.ClientDao;
 import org.example.spring.modele.Client;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+@Tag(name = "tag_at_class_ServiceClient",description = "")
 @Service
 public class ServiceClients implements ClientDao {
 

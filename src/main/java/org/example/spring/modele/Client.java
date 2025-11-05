@@ -1,12 +1,13 @@
 package org.example.spring.modele;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
 import java.time.LocalDate;
 
+@Tag(name = "tag_at_class_Client",description = "Client related class level tag")
 @Entity
 public class Client {
     @Id
@@ -76,5 +77,4 @@ public class Client {
                 ", drivingLicense='" + drivingLicense + '\'' +
                 '}';
     }
-
 }
